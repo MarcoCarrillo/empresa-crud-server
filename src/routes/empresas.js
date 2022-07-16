@@ -5,7 +5,7 @@ const mysqlConnection = require('../database');
 
 //Obtener empresas ordenadas
 router.get('/obtenerEmpresas', (req, res) => {
-    mysqlConnection.query('SELECT nombre, tipo, date_format(fecha_constitucion, "%d-%m-%Y") as fecha_constitucion FROM empresas ORDER BY nombre', (err, rows, fields) => {
+    mysqlConnection.query('SELECT id, nombre, tipo, date_format(fecha_constitucion, "%d-%m-%Y") as fecha_constitucion FROM empresas ORDER BY nombre', (err, rows, fields) => {
         if(!err){
             res.json(rows);
         } else {
