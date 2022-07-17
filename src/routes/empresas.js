@@ -5,7 +5,7 @@ const mysqlConnection = require('../database');
 
 //Obtener empresas ordenadas
 router.get('/obtenerEmpresas', (req, res) => {
-    mysqlConnection.query('SELECT id, nombre, tipo, date_format(fecha_constitucion, "%d-%m-%Y") as fecha_constitucion FROM empresas ORDER BY nombre', (err, rows, fields) => {
+    mysqlConnection.query('SELECT id, nombre, tipo, date_format(fecha_constitucion, "%d-%m-%Y") as fecha_constitucion, comentarios FROM empresas ORDER BY nombre', (err, rows, fields) => {
         if(!err){
             res.json(rows);
         } else {
@@ -17,10 +17,9 @@ router.get('/obtenerEmpresas', (req, res) => {
 
 //Crear empresa
 router.post('/crearEmpresas', (req, res) => {
-    const nombre = req.body.nombre;
-    const fecha_constitucion = req.body.fecha_constitucion;
-    const tipo = req.body.tipo;
-    const comentarios = req.body.comentarios;
+    console.log(req.body);
+    const {nombre, fecha_constitucion, tipo, comentarios} = req.body;
+
     console.log(req.body);
     mysqlConnection.query('INSERT INTO empresas (nombre, fecha_constitucion, tipo, comentarios) VALUES (?,?,?,?)', [nombre, fecha_constitucion, tipo, comentarios], (err, rows, fields) => {
         if(!err){
